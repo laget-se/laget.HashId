@@ -1,0 +1,40 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>laget.HashId</id>
+    <title>laget.HashId</title>
+    <version>$version$</version>
+    <authors>gonace,laget.se</authors>
+    <owners>laget.se</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An implementation for hashed ids to be used in public facing DTOs</description>
+    <summary></summary>
+    <license type="expression">Apache-2.0</license>
+    <projectUrl>https://laget.se</projectUrl>
+    <icon>assets\icon.png</icon>
+    <readme>assets\README.md</readme>
+    <repository type="git" url="https://github.com/laget-se/laget.HashId" branch="master" />
+    <dependencies>
+      <group targetFramework="netstandard2.1">
+          <dependency id="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+          <dependency id="Hashids.net" Version="1.6.1" />
+          <dependency id="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+          <dependency id="Microsoft.Extensions.Configuration.Binder" Version="7.0.3" />
+          <dependency id="Newtonsoft.Json" Version="13.0.3" />
+      </group>
+      <group targetFramework="netstandard2.0">
+          <dependency id="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+          <dependency id="Hashids.net" Version="1.6.1" />
+          <dependency id="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+          <dependency id="Microsoft.Extensions.Configuration.Binder" Version="7.0.3" />
+          <dependency id="Newtonsoft.Json" Version="13.0.3" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="..\README.md" target="assets\" />
+    <file src="..\assets\icon.png" target="assets\" />
+    <file src=".\bin\Release\netstandard2.1\*" target="lib\netstandard2.1\" />
+    <file src=".\bin\Release\netstandard2.0\*" target="lib\netstandard2.0\" />
+  </files>
+</package>

@@ -1,4 +1,6 @@
-﻿namespace laget.HashId.Exceptions
+﻿using System;
+
+namespace laget.HashId.Exceptions
 {
     public class HashIdNotRegisteredException : Exception
     {

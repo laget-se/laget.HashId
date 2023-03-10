@@ -1,4 +1,6 @@
-﻿namespace laget.HashId.Util
+﻿using System.Collections.Generic;
+
+namespace laget.HashId.Util
 {
     public class HashIdFactoryOptions
     {

@@ -9,7 +9,7 @@ namespace laget.HashId
     public class HashId
     {
         #region HashIdFactory
-        private static IHashIdFactory? _hashIdFactory;
+        private static IHashIdFactory _hashIdFactory;
         public static void SetHashIdFactory(IHashIdFactory factory) => _hashIdFactory = factory;
 
         private static IHashIdFactory HashIdFactory
@@ -31,13 +31,13 @@ namespace laget.HashId
         }
         public long ToLong() => HashIdFactory.GetId(Hash);
         public int ToInt() => (int)HashIdFactory.GetId(Hash);
-        public static HashId FromLong(long id) => new(HashIdFactory.GetHash(id));
-        public static HashId FromInt(int id) => new(HashIdFactory.GetHash(id));
-        public static HashId FromString(string hash) => new(hash);
+        public static HashId FromLong(long id) => new HashId(HashIdFactory.GetHash(id));
+        public static HashId FromInt(int id) => new HashId(HashIdFactory.GetHash(id));
+        public static HashId FromString(string hash) => new HashId(hash);
 
 
         #region Overrides & Operators
-        public override bool Equals(object? obj) => obj is HashId other && Hash.Equals(other.Hash);
+        public override bool Equals(object obj) => obj is HashId other && Hash.Equals(other.Hash);
 
         public override int GetHashCode() => Hash.GetHashCode();
 

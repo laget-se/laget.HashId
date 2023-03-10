@@ -2,6 +2,7 @@
 using laget.HashId.Exceptions;
 using laget.HashId.Util;
 using Microsoft.Extensions.Configuration;
+using System;
 
 namespace laget.HashId.Extensions
 {

@@ -1,5 +1,6 @@
 ﻿using HashidsNet;
 using laget.HashId.Exceptions;
+using System.Collections.Generic;
 
 namespace laget.HashId.Util
 {
@@ -13,7 +14,7 @@ namespace laget.HashId.Util
     {
         private const int HashLength = 13;
 
-        private readonly Dictionary<string, Hashids> _hashers = new();
+        private readonly Dictionary<string, Hashids> _hashers = new Dictionary<string, Hashids>();
         private readonly string _defaultHashVersion;
 
         public HashIdFactory(HashIdFactoryOptions options)
