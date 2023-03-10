@@ -1,4 +1,4 @@
-using laget.HashId.Exceptions;
+﻿using laget.HashId.Exceptions;
 using laget.HashId.Util;
 using Newtonsoft.Json;
 using Xunit;
@@ -83,6 +83,19 @@ namespace laget.HashId.Tests
 
             var deserializedDto = JsonConvert.DeserializeObject<Dto>(json);
             var deserializedId = deserializedDto.Id.ToLong();
+
+            Assert.Equal(id, deserializedId);
+        }
+
+        [Fact]
+        public void NumericIdIntIsProperlyExtracedFromHash()
+        {
+            const int id = 1234;
+            var dto = new Dto { Id = HashId.FromInt(id) };
+            var json = JsonConvert.SerializeObject(dto);
+
+            var deserializedDto = JsonConvert.DeserializeObject<Dto>(json);
+            var deserializedId = deserializedDto.Id.ToInt();
 
             Assert.Equal(id, deserializedId);
         }

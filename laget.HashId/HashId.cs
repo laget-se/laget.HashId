@@ -30,7 +30,9 @@ namespace laget.HashId
             Hash = hash;
         }
         public long ToLong() => HashIdFactory.GetId(Hash);
+        public int ToInt() => (int)HashIdFactory.GetId(Hash);
         public static HashId FromLong(long id) => new(HashIdFactory.GetHash(id));
+        public static HashId FromInt(int id) => new(HashIdFactory.GetHash(id));
         public static HashId FromString(string hash) => new(hash);
 
 

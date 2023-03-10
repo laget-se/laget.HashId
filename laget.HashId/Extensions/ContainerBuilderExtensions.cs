@@ -16,6 +16,5 @@ namespace laget.HashId.Extensions
                 HashId.SetHashIdFactory(new HashIdFactory(configuration.GetSection("HashIds").Get<HashIdFactoryOptions>()));
             });
         }
-
     }
 }
