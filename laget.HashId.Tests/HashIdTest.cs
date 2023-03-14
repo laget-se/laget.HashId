@@ -2,6 +2,7 @@
 using laget.HashId.Util;
 using Newtonsoft.Json;
 using Xunit;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace laget.HashId.Tests
 {
@@ -51,7 +52,7 @@ namespace laget.HashId.Tests
         }
 
         [Fact]
-        public void IsProperlySerialized()
+        public void IsProperlySerializedWithNewtonsoft()
         {
             const long id = 1234;
             var dto = new Dto { Id = HashId.FromLong(id) };
@@ -63,7 +64,7 @@ namespace laget.HashId.Tests
         }
 
         [Fact]
-        public void IsProperlyDeserialized()
+        public void IsProperlyDeserializedWithNewtonsoft()
         {
             const long id = 1234;
             var dto = new Dto { Id = HashId.FromLong(id) };
@@ -75,7 +76,7 @@ namespace laget.HashId.Tests
         }
 
         [Fact]
-        public void NumericIdIsProperlyExtracedFromHash()
+        public void NumericIdIsProperlyExtracedFromHashWithNewtonsoft()
         {
             const long id = 1234;
             var dto = new Dto { Id = HashId.FromLong(id) };
@@ -88,13 +89,63 @@ namespace laget.HashId.Tests
         }
 
         [Fact]
-        public void NumericIdIntIsProperlyExtracedFromHash()
+        public void NumericIdIntIsProperlyExtracedFromHashWithNewtonsoft()
         {
             const int id = 1234;
             var dto = new Dto { Id = HashId.FromInt(id) };
             var json = JsonConvert.SerializeObject(dto);
 
             var deserializedDto = JsonConvert.DeserializeObject<Dto>(json);
+            var deserializedId = deserializedDto.Id.ToInt();
+
+            Assert.Equal(id, deserializedId);
+        }
+
+        [Fact]
+        public void IsProperlySerializedWithSystemText()
+        {
+            const long id = 1234;
+            var dto = new Dto { Id = HashId.FromLong(id) };
+
+            var expectedJson = $"{{\"Id\":\"{dto.Id.Hash}\"}}";
+            var json = JsonSerializer.Serialize(dto);
+
+            Assert.Equal(expectedJson, json);
+        }
+
+        [Fact]
+        public void IsProperlyDeserializedWithSystemText()
+        {
+            const long id = 1234;
+            var dto = new Dto { Id = HashId.FromLong(id) };
+            var json = JsonSerializer.Serialize(dto);
+
+            var deserializedDto = JsonSerializer.Deserialize<Dto>(json);
+
+            Assert.Equal(dto.Id, deserializedDto.Id);
+        }
+
+        [Fact]
+        public void NumericIdIsProperlyExtracedFromHashWithSystemText()
+        {
+            const long id = 1234;
+            var dto = new Dto { Id = HashId.FromLong(id) };
+            var json = JsonSerializer.Serialize(dto);
+
+            var deserializedDto = JsonSerializer.Deserialize<Dto>(json);
+            var deserializedId = deserializedDto.Id.ToLong();
+
+            Assert.Equal(id, deserializedId);
+        }
+
+        [Fact]
+        public void NumericIdIntIsProperlyExtracedFromHashWithSystemText()
+        {
+            const int id = 1234;
+            var dto = new Dto { Id = HashId.FromInt(id) };
+            var json = JsonSerializer.Serialize(dto);
+
+            var deserializedDto = JsonSerializer.Deserialize<Dto>(json);
             var deserializedId = deserializedDto.Id.ToInt();
 
             Assert.Equal(id, deserializedId);

@@ -1,11 +1,10 @@
 ﻿using laget.HashId.Exceptions;
-using laget.HashId.Serialization;
 using laget.HashId.Util;
-using Newtonsoft.Json;
 
 namespace laget.HashId
 {
-    [JsonConverter(typeof(HashIdConverter))]
+    [Newtonsoft.Json.JsonConverter(typeof(Serialization.Newtonsoft.Json.HashIdConverter))]
+    [System.Text.Json.Serialization.JsonConverter(typeof(Serialization.System.Text.Json.HashIdConverter))]
     public class HashId
     {
         #region HashIdFactory
