@@ -77,55 +77,5 @@ namespace laget.HashId.Tests
 
             Assert.Equal(id, deserializedId);
         }
-
-        [Fact]
-        public void IsProperlySerializedWithSystemText()
-        {
-            const long id = 1234;
-            var model = new Model { Id = HashId.FromLong(id) };
-
-            var expectedJson = $"{{\"Id\":\"{model.Id.Hash}\"}}";
-            var json = JsonConvert.SerializeObject(model);
-
-            Assert.Equal(expectedJson, json);
-        }
-
-        [Fact]
-        public void IsProperlyDeserializedWithSystemText()
-        {
-            const long id = 1234;
-            var model = new Model { Id = HashId.FromLong(id) };
-            var json = JsonConvert.SerializeObject(model);
-
-            var deserializedDto = JsonConvert.DeserializeObject<Model>(json);
-
-            Assert.Equal(model.Id, deserializedDto.Id);
-        }
-
-        [Fact]
-        public void NumericIdIsProperlyExtractedFromHashWithSystemText()
-        {
-            const long id = 1234;
-            var model = new Model { Id = HashId.FromLong(id) };
-            var json = JsonConvert.SerializeObject(model);
-
-            var deserializedDto = JsonConvert.DeserializeObject<Model>(json);
-            var deserializedId = deserializedDto.Id.ToLong();
-
-            Assert.Equal(id, deserializedId);
-        }
-
-        [Fact]
-        public void NumericIdIntIsProperlyExtractedFromHashWithSystemText()
-        {
-            const int id = 1234;
-            var model = new Model { Id = HashId.FromInt(id) };
-            var json = JsonConvert.SerializeObject(model);
-
-            var deserializedDto = JsonConvert.DeserializeObject<Model>(json);
-            var deserializedId = deserializedDto.Id.ToInt();
-
-            Assert.Equal(id, deserializedId);
-        }
     }
 }
