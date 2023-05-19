@@ -4,7 +4,6 @@ using laget.HashId.Util;
 namespace laget.HashId
 {
     [Newtonsoft.Json.JsonConverter(typeof(Serialization.Newtonsoft.Json.HashIdConverter))]
-    [System.Text.Json.Serialization.JsonConverter(typeof(Serialization.System.Text.Json.HashIdConverter))]
     public class HashId
     {
         #region HashIdFactory
