@@ -93,12 +93,12 @@ namespace laget.HashId.Tests
             const int id = 1234;
             var hash = HashId.FromInt(id);
 
-            var model = new Model
+            var model = new Value
             {
-                Value = hash
+                Hash = hash
             };
 
-            Assert.Equal("0xdej2ORQx0RnpE", model.Value);
+            Assert.Equal("0xdej2ORQx0RnpE", model.Hash);
         }
     }
 }
