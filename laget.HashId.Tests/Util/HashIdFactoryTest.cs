@@ -1,5 +1,6 @@
 ﻿using laget.HashId.Util;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 using Xunit;
 
 namespace laget.HashId.Tests.Util
@@ -15,11 +16,12 @@ namespace laget.HashId.Tests.Util
             const string version0XSalt = "qwer";
             const string version1XSalt = "asdf";
 
-            var config = new Dictionary<string, string>();
-            config.Add("DefaultHashVersion", defaultHashVersion);
-
-            config.Add($"SaltVersions:{defaultHashVersion}", version0XSalt);
-            config.Add($"SaltVersions:{hashVersion2}", version1XSalt);
+            var config = new Dictionary<string, string>
+            {
+                { "DefaultHashVersion", defaultHashVersion },
+                { $"SaltVersions:{defaultHashVersion}", version0XSalt },
+                { $"SaltVersions:{hashVersion2}", version1XSalt }
+            };
 
             var options = new ConfigurationBuilder()
                 .AddInMemoryCollection(config)

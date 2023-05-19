@@ -28,6 +28,7 @@ namespace laget.HashId
         {
             Hash = hash;
         }
+
         public long ToLong() => HashIdFactory.GetId(Hash);
         public int ToInt() => (int)HashIdFactory.GetId(Hash);
         public static HashId FromLong(long id) => new HashId(HashIdFactory.GetHash(id));
@@ -36,15 +37,41 @@ namespace laget.HashId
 
 
         #region Overrides & Operators
-        public override bool Equals(object obj) => obj is HashId other && Hash.Equals(other.Hash);
+        public override bool Equals(object obj)
+        {
+            if (!(obj is HashId))
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(obj, this))
+            {
+                return true;
+            }
+
+            var rhs = (HashId)obj;
+
+            return Hash.Equals(rhs.Hash);
+        }
 
         public override int GetHashCode() => Hash.GetHashCode();
 
         public override string ToString() => Hash;
 
-        public static bool operator ==(HashId left, HashId right) => left.Equals(right);
+        public static bool operator ==(HashId lhs, HashId rhs)
+        {
+            if (ReferenceEquals(lhs, null))
+            {
+                return ReferenceEquals(rhs, null);
+            }
 
-        public static bool operator !=(HashId left, HashId right) => !(left == right);
+            return lhs.Equals(rhs);
+        }
+
+        public static bool operator !=(HashId lhs, HashId rhs)
+        {
+            return !(lhs == rhs);
+        }
         #endregion
     }
 }

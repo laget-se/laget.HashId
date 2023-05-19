@@ -1,36 +1,13 @@
 ﻿using laget.HashId.Exceptions;
-using laget.HashId.Util;
+using laget.HashId.Tests.Abstractions;
+using laget.HashId.Tests.Models;
 using Newtonsoft.Json;
 using Xunit;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace laget.HashId.Tests
 {
-    public class HashIdTest
+    public class HashIdTest : TestBase
     {
-        private const string HashVersion0X = "0x";
-        private const string Version0XSalt = "0xSalt";
-        private const string HashVersion1X = "1x";
-        private const string Version1XSalt = "1xSalt";
-        private const string HashVersion2X = "2x";
-
-        private readonly IHashIdFactory _hashIdFactory;
-
-        public HashIdTest()
-        {
-            var options = new HashIdFactoryOptions
-            {
-                DefaultHashVersion = HashVersion0X,
-                SaltVersions = new()
-                {
-                    { HashVersion0X, Version0XSalt },
-                    { HashVersion1X, Version1XSalt }
-                }
-            };
-            _hashIdFactory = new HashIdFactory(options);
-            HashId.SetHashIdFactory(_hashIdFactory);
-        }
-
         [Fact]
         public void ThrowsErrorOnUnknownHashVersion()
         {
@@ -48,17 +25,17 @@ namespace laget.HashId.Tests
 
             Assert.Throws<HashIdNotRegisteredException>(() => HashId.FromLong(1));
 
-            HashId.SetHashIdFactory(_hashIdFactory);
+            HashId.SetHashIdFactory(HashIdFactory);
         }
 
         [Fact]
         public void IsProperlySerializedWithNewtonsoft()
         {
             const long id = 1234;
-            var dto = new Dto { Id = HashId.FromLong(id) };
+            var model = new Model { Id = HashId.FromLong(id) };
 
-            var expectedJson = $"{{\"Id\":\"{dto.Id.Hash}\"}}";
-            var json = JsonConvert.SerializeObject(dto);
+            var expectedJson = $"{{\"Id\":\"{model.Id.Hash}\"}}";
+            var json = JsonConvert.SerializeObject(model);
 
             Assert.Equal(expectedJson, json);
         }
@@ -67,35 +44,35 @@ namespace laget.HashId.Tests
         public void IsProperlyDeserializedWithNewtonsoft()
         {
             const long id = 1234;
-            var dto = new Dto { Id = HashId.FromLong(id) };
-            var json = JsonConvert.SerializeObject(dto);
+            var model = new Model { Id = HashId.FromLong(id) };
+            var json = JsonConvert.SerializeObject(model);
 
-            var deserializedDto = JsonConvert.DeserializeObject<Dto>(json);
+            var deserializedDto = JsonConvert.DeserializeObject<Model>(json);
 
-            Assert.Equal(dto.Id, deserializedDto.Id);
+            Assert.Equal(model.Id, deserializedDto.Id);
         }
 
         [Fact]
-        public void NumericIdIsProperlyExtracedFromHashWithNewtonsoft()
+        public void NumericIdIsProperlyExtractedFromHashWithNewtonsoft()
         {
             const long id = 1234;
-            var dto = new Dto { Id = HashId.FromLong(id) };
-            var json = JsonConvert.SerializeObject(dto);
+            var model = new Model { Id = HashId.FromLong(id) };
+            var json = JsonConvert.SerializeObject(model);
 
-            var deserializedDto = JsonConvert.DeserializeObject<Dto>(json);
+            var deserializedDto = JsonConvert.DeserializeObject<Model>(json);
             var deserializedId = deserializedDto.Id.ToLong();
 
             Assert.Equal(id, deserializedId);
         }
 
         [Fact]
-        public void NumericIdIntIsProperlyExtracedFromHashWithNewtonsoft()
+        public void NumericIdIntIsProperlyExtractedFromHashWithNewtonsoft()
         {
             const int id = 1234;
-            var dto = new Dto { Id = HashId.FromInt(id) };
-            var json = JsonConvert.SerializeObject(dto);
+            var model = new Model { Id = HashId.FromInt(id) };
+            var json = JsonConvert.SerializeObject(model);
 
-            var deserializedDto = JsonConvert.DeserializeObject<Dto>(json);
+            var deserializedDto = JsonConvert.DeserializeObject<Model>(json);
             var deserializedId = deserializedDto.Id.ToInt();
 
             Assert.Equal(id, deserializedId);
@@ -105,10 +82,10 @@ namespace laget.HashId.Tests
         public void IsProperlySerializedWithSystemText()
         {
             const long id = 1234;
-            var dto = new Dto { Id = HashId.FromLong(id) };
+            var model = new Model { Id = HashId.FromLong(id) };
 
-            var expectedJson = $"{{\"Id\":\"{dto.Id.Hash}\"}}";
-            var json = JsonSerializer.Serialize(dto);
+            var expectedJson = $"{{\"Id\":\"{model.Id.Hash}\"}}";
+            var json = JsonConvert.SerializeObject(model);
 
             Assert.Equal(expectedJson, json);
         }
@@ -117,43 +94,38 @@ namespace laget.HashId.Tests
         public void IsProperlyDeserializedWithSystemText()
         {
             const long id = 1234;
-            var dto = new Dto { Id = HashId.FromLong(id) };
-            var json = JsonSerializer.Serialize(dto);
+            var model = new Model { Id = HashId.FromLong(id) };
+            var json = JsonConvert.SerializeObject(model);
 
-            var deserializedDto = JsonSerializer.Deserialize<Dto>(json);
+            var deserializedDto = JsonConvert.DeserializeObject<Model>(json);
 
-            Assert.Equal(dto.Id, deserializedDto.Id);
+            Assert.Equal(model.Id, deserializedDto.Id);
         }
 
         [Fact]
-        public void NumericIdIsProperlyExtracedFromHashWithSystemText()
+        public void NumericIdIsProperlyExtractedFromHashWithSystemText()
         {
             const long id = 1234;
-            var dto = new Dto { Id = HashId.FromLong(id) };
-            var json = JsonSerializer.Serialize(dto);
+            var model = new Model { Id = HashId.FromLong(id) };
+            var json = JsonConvert.SerializeObject(model);
 
-            var deserializedDto = JsonSerializer.Deserialize<Dto>(json);
+            var deserializedDto = JsonConvert.DeserializeObject<Model>(json);
             var deserializedId = deserializedDto.Id.ToLong();
 
             Assert.Equal(id, deserializedId);
         }
 
         [Fact]
-        public void NumericIdIntIsProperlyExtracedFromHashWithSystemText()
+        public void NumericIdIntIsProperlyExtractedFromHashWithSystemText()
         {
             const int id = 1234;
-            var dto = new Dto { Id = HashId.FromInt(id) };
-            var json = JsonSerializer.Serialize(dto);
+            var model = new Model { Id = HashId.FromInt(id) };
+            var json = JsonConvert.SerializeObject(model);
 
-            var deserializedDto = JsonSerializer.Deserialize<Dto>(json);
+            var deserializedDto = JsonConvert.DeserializeObject<Model>(json);
             var deserializedId = deserializedDto.Id.ToInt();
 
             Assert.Equal(id, deserializedId);
-        }
-
-        public class Dto
-        {
-            public HashId Id { get; set; }
         }
     }
 }
