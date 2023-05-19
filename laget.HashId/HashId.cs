@@ -36,6 +36,16 @@ namespace laget.HashId
 
 
         #region Overrides & Operators
+        public static implicit operator string(HashId hashId)
+        {
+            return hashId.Hash;
+        }
+
+        public static explicit operator HashId(string hash)
+        {
+            return new HashId(hash);
+        }
+
         public override bool Equals(object obj)
         {
             if (!(obj is HashId))

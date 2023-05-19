@@ -77,5 +77,28 @@ namespace laget.HashId.Tests
 
             Assert.Equal(id, deserializedId);
         }
+
+        [Fact]
+        public void ShouldHandleExplicitOperator()
+        {
+            const string expected = "0xR4reL0zL3Xgq8";
+            var actual = (HashId)"0xR4reL0zL3Xgq8";
+
+            Assert.Equal(expected, actual.Hash);
+        }
+
+        [Fact]
+        public void ShouldHandleImplicitOperator()
+        {
+            const int id = 1234;
+            var hash = HashId.FromInt(id);
+
+            var model = new Model
+            {
+                Value = hash
+            };
+
+            Assert.Equal("0xdej2ORQx0RnpE", model.Value);
+        }
     }
 }
