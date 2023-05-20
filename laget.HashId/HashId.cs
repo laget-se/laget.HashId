@@ -61,9 +61,19 @@ namespace laget.HashId
             return HashId.FromLong(value);
         }
 
+        public static explicit operator HashId(long? value)
+        {
+            return value.HasValue ? HashId.FromLong(value.Value) : null;
+        }
+
         public static explicit operator HashId(int value)
         {
             return HashId.FromInt(value);
+        }
+
+        public static explicit operator HashId(int? value)
+        {
+            return value.HasValue ? HashId.FromLong(value.Value) : null;
         }
 
         public override bool Equals(object obj)
