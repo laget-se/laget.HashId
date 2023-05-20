@@ -38,17 +38,17 @@ namespace laget.HashId
         #region Overrides & Operators
         public static implicit operator long(HashId hashId)
         {
-            return hashId.ToLong();
+            return hashId?.ToLong();
         }
 
         public static implicit operator int(HashId hashId)
         {
-            return hashId.ToInt();
+            return hashId?.ToInt();
         }
 
         public static implicit operator string(HashId hashId)
         {
-            return hashId.ToString();
+            return hashId?.ToString();
         }
 
         public static implicit operator HashId(string hash)
