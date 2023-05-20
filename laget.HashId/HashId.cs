@@ -36,14 +36,34 @@ namespace laget.HashId
 
 
         #region Overrides & Operators
-        public static implicit operator string(HashId hashId)
+        public static implicit operator long(HashId hashId)
         {
-            return hashId.Hash;
+            return hashId.ToLong();
         }
 
-        public static explicit operator HashId(string hash)
+        public static implicit operator int(HashId hashId)
+        {
+            return hashId.ToInt();
+        }
+
+        public static implicit operator string(HashId hashId)
+        {
+            return hashId.ToString();
+        }
+
+        public static implicit operator HashId(string hash)
         {
             return new HashId(hash);
+        }
+
+        public static implicit operator HashId(long value)
+        {
+            return HashId.FromLong(value);
+        }
+
+        public static implicit operator HashId(int value)
+        {
+            return HashId.FromInt(value);
         }
 
         public override bool Equals(object obj)
