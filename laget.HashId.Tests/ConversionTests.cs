@@ -6,11 +6,11 @@ namespace laget.HashId.Tests
     public class ConversionTests : TestBase
     {
         [Fact]
-        public void ShouldBeConvertedToInt()
+        public void ShouldBeCastToInt()
         {
             const int hashId = 1;
             var hash = HashId.FromInt(hashId);
-            var model = new IntModel { Value = hash };
+            var model = new IntModel { Value = (int)hash };
 
             Assert.Equal(1, hash.ToInt());
             Assert.Equal(1, (int)hash);
@@ -18,11 +18,11 @@ namespace laget.HashId.Tests
         }
 
         [Fact]
-        public void ShouldBeConvertedToLong()
+        public void ShouldBeCastToLong()
         {
             const int hashId = 1;
             var hash = HashId.FromInt(hashId);
-            var model = new LongModel { Value = hash };
+            var model = new LongModel { Value = (long)hash };
 
             Assert.Equal(1, hash.ToLong());
             Assert.Equal(1, (long)hash);
@@ -30,11 +30,11 @@ namespace laget.HashId.Tests
         }
 
         [Fact]
-        public void ShouldBeConvertedToString()
+        public void ShouldBeCastToString()
         {
             const int hashId = 1;
             var hash = HashId.FromInt(hashId);
-            var model = new StringModel { Value = hash };
+            var model = new StringModel { Value = (string)hash };
 
             Assert.Equal("0xR4reL0zL3Xgq8", hash.ToString());
             Assert.Equal("0xR4reL0zL3Xgq8", (string)hash);

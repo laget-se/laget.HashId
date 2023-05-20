@@ -86,19 +86,5 @@ namespace laget.HashId.Tests
 
             Assert.Equal(expected, actual.Hash);
         }
-
-        [Fact]
-        public void ShouldHandleImplicitOperator()
-        {
-            const int id = 1234;
-            var hash = HashId.FromInt(id);
-
-            var model = new Value
-            {
-                Hash = hash
-            };
-
-            Assert.Equal("0xdej2ORQx0RnpE", model.Hash);
-        }
     }
 }
