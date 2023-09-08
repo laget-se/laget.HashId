@@ -4,7 +4,7 @@
     <id>laget.HashId</id>
     <title>laget.HashId</title>
     <version>$version$</version>
-    <authors>gonace,laget.se</authors>
+    <authors>laget.se</authors>
     <owners>laget.se</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>An implementation for hashed ids to be used in public facing DTOs</description>
