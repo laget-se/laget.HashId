@@ -1,4 +1,7 @@
 # laget.HashIds
+> **Note**
+> Hashids has been upgraded & rebranded as Sqids
+
 Simple library for using hashed ids in DTOs
 
 Based on https://hashids.org/
