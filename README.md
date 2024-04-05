@@ -1,6 +1,6 @@
 # laget.HashIds
 > **Note**
-> Hashids have been upgraded & rebranded as Sqids and we've created a separate package for this [here!](https://github.com/laget-se/laget.Sqids). This means that this package will no longer be maintained apart form security issues.
+> Hashids have been upgraded & rebranded as Sqids and we've created a separate package for this [here!](https://github.com/laget-se/laget.Sqids). This means that this package will no longer be maintained and have been archived as of 2024-04-05.
 
 Simple library for using hashed ids in DTOs
 
